@@ -1,0 +1,14 @@
+# Entorno virtual
+.env
+.venv
+env/
+venv/
+ENV/
+
+
+# Archivos de configuración de IDEs (ej. PyCharm, Visual Studio Code)
+.idea/
+.vscode/
+
+# Archivos de base de datos SQLite (si usas SQLite)
+db.sqlite3
