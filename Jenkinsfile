@@ -22,7 +22,7 @@ pipeline {
         }
     }
 
-    }
+    
     post {
         success {
             mail to: 'alvaro@grancaribe.gca.tur.cu',
