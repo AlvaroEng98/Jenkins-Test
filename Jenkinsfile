@@ -13,13 +13,13 @@ pipeline {
                 echo('Construyendo el proyecto')
                 sh 'docker build -t my-django-app:test1 .'
             }
-
-        }stage('Montar') {
+        }
+        stage('Montar') {
             steps {
                 echo('Desplegando el proyecto')
                 sh 'docker run -p 8000:8000 my-django-app:test1'
             }
-            }
+        }
 
     }
     post {
