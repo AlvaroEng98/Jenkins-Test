@@ -3,16 +3,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Construir') {
+        stage('Inicializar') {
             steps {
-                echo 'Construir el Proyecto'
+                echo 'Inizializando el Proyecto'
             }
         }
-        stage('Prueba') {
+        stage('Build') {
             steps {
-                echo('Probando el proyecto')
+                echo('Construyendo el proyecto')
+                sh 'docker build -t my-django-app:test1 .'
             }
-        }
+
+        }stage('Montar') {
+            steps {
+                echo('Desplegando el proyecto')
+                sh 'docker run -p 8000:8000 my-django-app:test1'
+            }
+            }
 
     }
     post {
