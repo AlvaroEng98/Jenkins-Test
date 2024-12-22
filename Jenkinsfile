@@ -16,13 +16,14 @@ pipeline {
                 script {
                     // Iniciar sesión en Docker Hub usando las credenciales almacenadas en Jenkins
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        env.IMAGE_NAME = "${DOCKER_USERNAME}/django-jenkins-test"
+
                         // Usar --password-stdin para evitar pasar la contraseña en la línea de comandos
                         sh """
                             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                         """
                     }
                     // Asignar el nombre de la imagen usando el nombre de usuario
-                    env.IMAGE_NAME = "${DOCKER_USERNAME}/django-jenkins-test"
                 }
             }
         }
