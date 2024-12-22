@@ -18,16 +18,11 @@ pipeline {
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
-        stage('Build') {
-            steps {
-                echo 'Construyendo la imagen'
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
-            }
-        }
+
         stage('Push') {
             steps {
                 echo 'Enviando la imagen'
-                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+        //        sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
             }
         }
 
