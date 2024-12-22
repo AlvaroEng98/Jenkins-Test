@@ -32,7 +32,7 @@ pipeline {
         success {
             script {
                 // Enviar correo en caso de éxito
-                mail to: 'destinatario@example.com',
+                mail to: 'alvaro@grancaribe.gca.tur.cu',
                      subject: 'Pipeline Completo - Éxito',
                      body: "El pipeline se completó exitosamente.\n\nLa versión de Git es: ${env.GIT_VERSION}\nLa versión de Docker es: ${env.DOCKER_VERSION}"
             }
@@ -40,7 +40,7 @@ pipeline {
         failure {
             script {
                 // Enviar correo en caso de fallo
-                mail to: 'destinatario@example.com',
+                mail to: 'alvaro@grancaribe.gca.tur.cu',
                      subject: 'Pipeline Fallido',
                      body: "El pipeline ha fallado.\n\nPor favor, revisa los logs para más detalles."
             }
