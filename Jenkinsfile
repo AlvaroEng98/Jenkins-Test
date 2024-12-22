@@ -4,7 +4,9 @@ pipeline {
     environment {
 
         DOCKER_HUB_CREDENTIALS  = 'dockerhub_credentials' // ID de las credenciales
-        IMAGE_NAME = ''
+
+
+        IMAGE_NAME = 'valadordev/django-jenkins-test'
         IMAGE_TAG = 'v1.0'
     }
 
@@ -20,8 +22,6 @@ pipeline {
                             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                         """
                     }
-                    env.IMAGE_NAME = "$DOCKER_USERNAME/django-jenkins-test"
-
                 }
             }
         }
@@ -29,14 +29,14 @@ pipeline {
         stage('Docker Build ') {
             steps {
                 echo 'Construyendo la imagen'
-                sh "docker build -t ${env.IMAGE_NAME}:IMAGE_TAG ."
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
 
         stage('Push') {
             steps {
                 echo 'Enviando la imagen'
-                sh "docker push ${env.IMAGE_NAME}:IMAGE_TAG"
+                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
             }
         }
 
