@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     stages {
@@ -8,6 +7,5 @@ pipeline {
                 echo 'Inicializando el Proyecto'
             }
         }
-
-
+    }
 }
