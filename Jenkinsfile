@@ -6,7 +6,6 @@ pipeline {
         DOCKER_HUB_CREDENTIALS  = 'dockerhub_credentials' // ID de las credenciales
 
 
-        IMAGE_NAME = 'valadordev/django-jenkins-test'
         IMAGE_TAG = 'v1.0'
     }
 
@@ -22,6 +21,8 @@ pipeline {
                             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                         """
                     }
+                    // Asignar el nombre de la imagen usando el nombre de usuario
+                    env.IMAGE_NAME = "${DOCKER_USERNAME}/django-jenkins-test"
                 }
             }
         }
