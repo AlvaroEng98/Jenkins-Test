@@ -3,8 +3,8 @@ pipeline {
     agent any
     environment {
 
-        DOCKER_ID = credentials('1') // ID de las credenciales
-        DOCKER_PASSWORD = credentials('1') // ID de las credenciales
+        DOCKER_ID = credentials('dockerhub_credentials') // ID de las credenciales
+        DOCKER_PASSWORD = credentials('dockerhub_credentials') // ID de las credenciales
 
 
         IMAGE_NAME = 'valador/django-jenkins-test'
@@ -14,10 +14,8 @@ pipeline {
     stages {
         stage('Docker login ') {
             steps {
-                script {
-                    // Imprimir el nombre de usuario
-                    echo "El nombre de usuario de Docker Hub es: ${DOCKER_ID}"
-                }
+                echo 'Construyendo la imagen'
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
         stage('Build') {
