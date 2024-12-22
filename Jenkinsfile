@@ -16,13 +16,13 @@ pipeline {
         stage('Verificar Versiones') {
             steps {
                 script {
-                    // Obtener la versión de Git y Docker
-                    env.GIT_VERSION = sh(script: 'git --version', returnStdout: true).trim()
-                    env.DOCKER_VERSION = sh(script: 'docker --version', returnStdout: true).trim()
+                    // Imprimir la versión de Git
+                    echo "Versión de Git:"
+                    sh 'git -v'
 
-                    // Imprimir las versiones
-                    echo "Versión de Git: ${env.GIT_VERSION}"
-                    echo "Versión de Docker: ${env.DOCKER_VERSION}"
+                    // Imprimir la versión de Docker
+                    echo "Versión de Docker:"
+                    sh 'docker -v'
                 }
             }
         }
