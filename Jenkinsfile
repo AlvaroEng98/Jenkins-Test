@@ -15,8 +15,8 @@ pipeline {
         stage('Docker login ') {
             steps {
                 script {
-                    // Iniciar sesión en Docker Hub
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin'
+                    // Imprimir el nombre de usuario
+                    echo "El nombre de usuario de Docker Hub es: ${DOCKER_ID}"
                 }
             }
         }
