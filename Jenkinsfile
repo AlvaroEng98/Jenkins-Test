@@ -12,7 +12,17 @@ pipeline {
     }
 
     stages {
-        stage('Docker login ') {
+
+        stage('Docker Login') {
+            steps {
+                echo 'Iniciando sesión en Docker Hub'
+                script {
+                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin"
+                }
+            }
+        }
+
+        stage('Docker Build ') {
             steps {
                 echo 'Construyendo la imagen'
                 sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
@@ -22,7 +32,7 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Enviando la imagen'
-        //        sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
             }
         }
 
