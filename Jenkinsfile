@@ -1,49 +1,35 @@
 pipeline {
-    agent any
 
+    agent any
     environment {
-        GIT_VERSION = ''
-        DOCKER_VERSION = ''
+        IMAGE_NAME = 'valador/django-jenkins-test'
+        IMAGE_TAG = 'v1.0'
     }
 
     stages {
-        stage('Inicializar') {
+        stage('Build') {
             steps {
-                echo 'Inicializando el Proyecto'
+                echo 'Construyendo la imagen'
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
-
-        stage('Verificar Versiones') {
+        stage('Push') {
             steps {
-                script {
-                    // Imprimir la versión de Git
-                    echo "Versión de Git:"
-                    sh 'git -v'
+                echo 'Enviando la imagen'
+                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+            }
+        }
 
-                    // Imprimir la versión de Docker
-                    echo "Versión de Docker:"
-                    sh 'docker -v'
-                }
-            }
-        }
-    }
+   }
 
-    post {
-        success {
-            script {
-                // Enviar correo en caso de éxito
-                mail to: 'alvaro@grancaribe.gca.tur.cu',
-                     subject: 'Pipeline Completo - Éxito',
-                     body: "El pipeline se completó exitosamente.\n\nLa versión de Git es: ${env.GIT_VERSION}\nLa versión de Docker es: ${env.DOCKER_VERSION}"
-            }
-        }
-        failure {
-            script {
-                // Enviar correo en caso de fallo
-                mail to: 'alvaro@grancaribe.gca.tur.cu',
-                     subject: 'Pipeline Fallido',
-                     body: "El pipeline ha fallado.\n\nPor favor, revisa los logs para más detalles."
-            }
-        }
-    }
+   post {
+       success {
+           echo 'La imagen se ha construido y enviado correctamente'
+       }
+       failure {
+           echo 'Ha ocurrido un error al construir o enviar la imagen'
+       }
+   }
+
+
 }
