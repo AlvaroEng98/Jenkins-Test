@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
 
-        DOCKER_CREDENTIALS = credentials('dockerhub_credentials') // ID de las credenciales
+        DOCKER_HUB_CREDENTIALS  = 'dockerhub_credentials' // ID de las credenciales
 
 
         IMAGE_NAME = 'valador/django-jenkins-test'
@@ -12,13 +12,12 @@ pipeline {
 
     stages {
 
-        stage('Docker Login') {
+        stage('Login to Docker Hub') {
             steps {
-                echo 'Iniciando sesión en Docker Hub'
                 script {
-                    // Usar withCredentials para manejar las credenciales
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKER_ID', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin"
+                    // Iniciar sesión en Docker Hub usando las credenciales almacenadas en Jenkins
+                    withCredentials([usernamePassword(credentialsId: env.DOCKER_HUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     }
                 }
             }
